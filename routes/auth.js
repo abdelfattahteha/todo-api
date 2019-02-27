@@ -12,7 +12,7 @@ const router = express.Router();
 router.post('/signup', [
     body('name').isLength({min:4})
         .withMessage("name should be at least 4 characters."),
-    body('email').isEmail().normalizeEmail()
+    body('email').isEmail()
         .withMessage("E-mail must be valid.")
         .custom( (value, {req}) => {
             return User.findOne({email: value})  // check if email exist
@@ -38,7 +38,7 @@ router.post('/signup', [
 
 // login route
 router.post('/login', [
-    body('email').isEmail().normalizeEmail()
+    body('email').isEmail()
         .withMessage("E-mail Not Valid!")
         .custom( (value, {req}) => {
             return User.findOne({email: value})
